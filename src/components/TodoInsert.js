@@ -3,29 +3,54 @@ import { MdAdd } from "react-icons/md";
 import "./TodoInsert.scss";
 
 const TodoInsert = ({ onInsert }) => {
-  const [value, setValue] = useState("");
+  const [values, setValues] = useState({
+    category: "",
+    text: "",
+  });
 
-  const onChange = useCallback((e) => {
-    setValue(e.target.value);
-  }, []);
+  const onChange = useCallback(
+    (e) => {
+      setValues({ ...values, [e.target.name]: e.target.value });
+    },
+    [values]
+  );
 
   const onSubmit = useCallback(
     (e) => {
-      onInsert(value);
-      setValue("");
+      if (values.text === "") {
+        alert("텍스트를 입력하세요");
+      } else if (values.category === "") {
+        alert("카테고리를 입력하세요");
+      } else {
+        onInsert(values.category, values.text);
+        setValues({
+          category: "",
+          text: "",
+        });
+      }
 
       e.preventDefault();
     },
-    [onInsert, value]
+    [onInsert, values]
   );
 
   return (
     <form className="TodoInsert" onSubmit={onSubmit}>
-      <input
-        placeholder="할 일을 입력하세요"
-        value={value}
-        onChange={onChange}
-      />
+      <div>
+        <input
+          placeholder="카테고리를 입력하세요"
+          value={values.category}
+          name="category"
+          onChange={onChange}
+        />
+        <input
+          placeholder="할 일을 입력하세요"
+          value={values.text}
+          name="text"
+          onChange={onChange}
+        />
+      </div>
+
       <button type="submit">
         <MdAdd />
       </button>

@@ -8,26 +8,31 @@
 }
 
 .TodoListItem {
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
-  align-items: center; // 세로 중앙 정렬
+  align-items: center;
   .checkbox {
     cursor: pointer;
-    flex: 1; // 차지할 수 있는 영역 모두 차지
+    flex: 1;
     display: flex;
-    align-items: center; // 세로 중앙 정렬
+    align-items: center;
     svg {
-      // 아이콘
       font-size: 1.5rem;
     }
-    .text {
+    .textField {
+      flex: 1;
       margin-left: 0.5rem;
-      flex: 1; // 차지할 수 있는 영역 모두 차지
+      .category {
+        color: #adb5bd;
+      }
     }
     // 체크되었을 때 보여줄 스타일
     &.checked {
       svg {
         color: #22b8cf;
+      }
+      .category {
+        text-decoration: line-through;
       }
       .text {
         color: #adb5bd;
@@ -37,7 +42,7 @@
   }
   .remove {
     display: flex;
-    align-items: center;
+    //align-items: center;
     font-size: 1.5rem;
     color: #ff6b6b;
     cursor: pointer;
