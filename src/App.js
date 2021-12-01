@@ -8,8 +8,9 @@ function createBulkTodos() {
   for (let i = 1; i <= 3; i++) {
     array.push({
       id: i,
-      category: `first`,
+      category: `임시 카테고리`,
       text: `할 일 ${i}`,
+      date: "2021/12/01",
       checked: false,
     });
   }
@@ -21,8 +22,8 @@ const App = () => {
 
   const nextId = useRef(4);
 
-  const onInsert = useCallback((category, text) => {
-    const todo = { id: nextId.current, category, text, checked: false };
+  const onInsert = useCallback((category, text, date) => {
+    const todo = { id: nextId.current, category, text, date, checked: false };
     setTodos((todos) => todos.concat(todo));
     nextId.current += 1;
   }, []);

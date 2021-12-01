@@ -8,7 +8,7 @@ import cn from "classnames";
 import "./TodoListItem.scss";
 
 const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
-  const { id, category, text, checked } = todo;
+  const { id, category, text, date, checked } = todo;
 
   return (
     <div className="TodoListItem-virtualized" style={style}>
@@ -20,6 +20,7 @@ const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
           {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
           <div className="textField">
             <div className="category">{category}</div>
+            <div className="category">{date}까지!</div>
             <div className="text">{text}</div>
           </div>
         </div>
