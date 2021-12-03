@@ -24,7 +24,12 @@ const TodoListItem = ({ todo, onRemove, onToggle, style }) => {
             <div className="text">{text}</div>
           </div>
         </div>
-        <div className="remove" onClick={() => onRemove(id)}>
+        <div
+          className="remove"
+          onClick={() => {
+            onRemove(id);
+          }}
+        >
           <MdRemoveCircleOutline />
         </div>
       </div>

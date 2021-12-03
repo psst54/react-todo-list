@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback } from "react";
 import TodoTemplate from "./components/TodoTemplate";
 import TodoInsert from "./components/TodoInsert";
 import TodoList from "./components/TodoList";
+import Dialog from "./components/Dialog";
 
 function createBulkTodos() {
   const array = [];
@@ -19,6 +20,7 @@ function createBulkTodos() {
 
 const App = () => {
   const [todos, setTodos] = useState(createBulkTodos);
+  const [dialog, setDialog] = useState(false);
 
   const nextId = useRef(4);
 
@@ -29,7 +31,7 @@ const App = () => {
   }, []);
 
   const onRemove = useCallback((id) => {
-    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    setDialog(id);
   }, []);
 
   const onToggle = useCallback((id) => {
@@ -40,11 +42,25 @@ const App = () => {
     );
   }, []);
 
+  const onConfirm = () => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== dialog));
+    setDialog(false);
+  };
+
+  const onCancel = () => {
+    setDialog(false);
+  };
+
   return (
-    <TodoTemplate>
-      <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
-    </TodoTemplate>
+    <div>
+      <TodoTemplate>
+        <TodoInsert onInsert={onInsert} />
+        <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
+      </TodoTemplate>
+      {dialog && (
+        <Dialog onConfirm={onConfirm} onCancel={onCancel} visible={dialog} />
+      )}
+    </div>
   );
 };
 
